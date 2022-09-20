@@ -412,6 +412,28 @@ Pinit_pair(lua_State *L)
 }
 
 
+
+/***
+Adjust rgb associated with a color.
+@function init_color
+@int color color to be adjusted, in range 0 to 7
+@int r red color in range 0 to 1000
+@int g red color in range 0 to 1000
+@int b red color in range 0 to 1000
+@treturn bool `true`, if successful
+@see init_color(3x)
+*/
+static int
+Pinit_color(lua_State *L)
+{
+	short color = checkint(L, 1);
+	short r = checkint(L, 2);
+	short g = checkint(L, 3);
+	short b = checkint(L, 4);
+	return pushokresult(init_color(color, r, g, b));
+}
+
+
 /***
 Return the foreground and background colors associated with a color pair id.
 @function pair_content
@@ -1285,6 +1307,7 @@ static const luaL_Reg curseslib[] =
 	LCURSES_FUNC( Phas_colors	),
 	LCURSES_FUNC( Phas_ic		),
 	LCURSES_FUNC( Phas_il		),
+	LCURSES_FUNC( Pinit_color	),
 	LCURSES_FUNC( Pinit_pair	),
 	LCURSES_FUNC( Pisendwin		),
 	LCURSES_FUNC( Pkeyname		),
