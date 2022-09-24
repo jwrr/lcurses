@@ -412,14 +412,31 @@ Pinit_pair(lua_State *L)
 }
 
 
+/***
+Can the terminal change color definitions?
+@function can_change_color
+@treturn bool `true`, if the terminal can change color definitions
+@see has_colors(3x)
+@see init_color(3x)
+@usage
+if curses.can_change_color () then
+  curses.init_color (curses.COLOR_MAGENTA, red, green, blue)
+end
+*/
+static int
+Pcan_change_color(lua_State *L)
+{
+	return pushboolresult(can_change_color());
+}
+
 
 /***
-Adjust rgb associated with a color.
+Change RGB color definition.
 @function init_color
 @int color color to be adjusted, in range 0 to 7
 @int r red color in range 0 to 1000
-@int g red color in range 0 to 1000
-@int b red color in range 0 to 1000
+@int g green color in range 0 to 1000
+@int b blue color in range 0 to 1000
 @treturn bool `true`, if successful
 @see init_color(3x)
 */
@@ -1307,6 +1324,7 @@ static const luaL_Reg curseslib[] =
 	LCURSES_FUNC( Phas_colors	),
 	LCURSES_FUNC( Phas_ic		),
 	LCURSES_FUNC( Phas_il		),
+	LCURSES_FUNC( Pcan_change_color	),
 	LCURSES_FUNC( Pinit_color	),
 	LCURSES_FUNC( Pinit_pair	),
 	LCURSES_FUNC( Pisendwin		),
